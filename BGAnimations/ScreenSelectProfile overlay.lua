@@ -43,14 +43,41 @@ end
 
 function LoadPlayerStuff(pn)
 	local t = Def.ActorFrame {
+		
+		
+		--Shown irregardless of player
+		Def.ActorFrame {
+			Condition = not IsDataSaveSummary();
+			LoadActor( THEME:GetPathG("","ScreenSelectProfile/header") ) .. {
+				InitCommand=function(s) s:zoomy(0) end,
+				OnCommand=function(s) s:x(0):y(-262):sleep(0.5):linear(0.1):zoomx(1):zoomy(1) end,
+				OffCommand=function(s) s:linear(0.1):zoomy(0):diffusealpha(0) end,
+			};
+			LoadActor( THEME:GetPathG("","ScreenSelectProfile/player"..string.sub(pn,-1)) ) .. {
+				InitCommand=function(s) s:zoomy(0) end,
+				OnCommand=function(s) s:x(-110):y(-270):sleep(0.5):linear(0.1):zoomx(1):zoomy(1) end,
+				OffCommand=function(s) s:linear(0.1):zoomy(0):diffusealpha(0) end,
+			};
+			
+		};
 		--No Player yet
 		Def.ActorFrame {
 			Condition=not IsDataSaveSummary();
 			Name = 'JoinFrame';
 			LoadCard(Color('Outline'),color('0,0,0,0'),pn,true);
-			LoadActor( THEME:GetPathG("","ScreenSelectProfile/"..Model().."press") ) .. {
-				InitCommand=cmd(zoomy,0;diffuseshift;effectcolor1,Color('White');effectcolor2,color("#A5A6A5"));
-				OnCommand=cmd(x,0;y,-15;sleep,0.5;linear,0.1;zoomx,1;zoomy,1);
+			LoadActor( THEME:GetPathG("","ScreenSelectProfile/base") ) .. {
+				InitCommand=function(s) s:zoomy(0) end,
+				OnCommand=function(s) s:x(0):y(-15):sleep(0.5):linear(0.1):zoomx(1):zoomy(1) end,
+				OffCommand=function(s) s:linear(0.1):zoomy(0):diffusealpha(0) end,
+			};
+			LoadActor( THEME:GetPathG("","ScreenSelectProfile/"..Language().."confirm eamuse") ) .. {
+				InitCommand=function(s) s:zoomy(0) end,
+				OnCommand=function(s) s:x(-50):y(-245):sleep(0.5):linear(0.1):zoomx(1):zoomy(1) end,
+				OffCommand=function(s) s:linear(0.1):zoomy(0):diffusealpha(0) end,
+			};
+			LoadActor( THEME:GetPathG("","ScreenSelectProfile/press") ) .. {
+				InitCommand=function(s) s:zoomy(0):diffusealpha(1):diffuseshift():effectperiod(3):effectcolor1(color("1,1,1,1")):effectcolor2(color("1,1,1,0")) end,
+				OnCommand=function(s) s:x(0):y(-15):sleep(0.5):linear(0.1):zoomx(1):zoomy(1) end,
 				OffCommand=function(s) s:linear(0.1):zoomy(0):diffusealpha(0) end,
 			};
 		};
@@ -58,6 +85,11 @@ function LoadPlayerStuff(pn)
 		Def.ActorFrame {
 			Name = 'BigFrame';
 			LoadCard(PlayerColor(),color('1,1,1,1'),pn,false);
+			LoadActor( THEME:GetPathG("","ScreenSelectProfile/"..Language().."profile") ) .. {
+				InitCommand=function(s) s:zoomy(0) end,
+				OnCommand=function(s) s:x(-50):y(-245):sleep(0.5):linear(0.1):zoomx(1):zoomy(1) end,
+				OffCommand=function(s) s:linear(0.1):zoomy(0):diffusealpha(0) end,
+			};
 			Def.Sprite{
 				InitCommand=function(s) s:y(-165) 
 					if IsDataSaveSummary() then 
@@ -69,30 +101,37 @@ function LoadPlayerStuff(pn)
 				OnCommand=function(s) s:diffusealpha(0):sleep(0.87):linear(0.3):diffusealpha(1) end,
 				OffCommand=function(s) s:diffusealpha(0) end,
 			};
+			LoadActor( THEME:GetPathG("","ScreenSelectProfile/default banner") ) .. {
+				InitCommand=function(s) s:zoomy(0) end,
+				OnCommand=function(s) s:x(0):y(-164):sleep(0.5):linear(0.1):zoomx(1):zoomy(1) end,
+				OffCommand=function(s) s:diffusealpha(0) end,
+			};
+			LoadActor( THEME:GetPathG("","ScreenSelectProfile/profile_base") ) .. {
+				InitCommand=function(s) s:zoomy(0) end,
+				OnCommand=function(s) s:x(0):y(-55):sleep(0.5):linear(0.1):zoomx(1):zoomy(1) end,
+				OffCommand=function(s) s:diffusealpha(0) end,
+			};
+			LoadActor( THEME:GetPathG("","ScreenSelectProfile/profile_league") ) .. {
+				InitCommand=function(s) s:zoomy(0) end,
+				OnCommand=function(s) s:x(0):y(130):sleep(0.5):linear(0.1):zoomx(1):zoomy(1) end,
+				OffCommand=function(s) s:diffusealpha(0) end,
+			};
+			LoadActor( THEME:GetPathG("","ScreenSelectProfile/league_none") ) .. {
+				InitCommand=function(s) s:zoomy(0) end,
+				OnCommand=function(s) s:x(0):y(130):sleep(0.5):linear(0.1):zoomx(1):zoomy(1) end,
+				OffCommand=function(s) s:diffusealpha(0) end,
+			};
 		};
 		--Player deco
-		Def.Sprite{
-			InitCommand=function(s) 
-				if IsDataSaveSummary() then 
-					s:Load(THEME:GetPathG("","ScreenSelectProfile/"..Model()..Language().."gameskip"))
-					s:xy(10,271) 
-				else
-					s:Load(THEME:GetPathG("","ScreenSelectProfile/"..Model()..Language().."gamestart"))
-					s:xy(2,271)
-				end
-			end,
-				OnCommand=function(s) s:diffusealpha(0):sleep(0.87):linear(0.3):diffusealpha(1) end,
-				OffCommand=function(s) s:diffusealpha(0) end,
-		};
-		LoadFont("ProfileText 24px") .. {
+		LoadFont("_arial black cont 28px") .. {
 			Name = 'ProfileText';
-			InitCommand=function(s) s:uppercase(true):xy(-175,-83):halign(0):zoomy(0.7):maxwidth(245) end,
+			InitCommand=function(s) s:uppercase(true):xy(-195,-155):halign(0):maxwidth(245):zoom(0.9) end,
 				OnCommand=function(s) s:diffusealpha(0):sleep(0.87):linear(0.3):diffusealpha(1) end,
 				OffCommand=function(s) s:diffusealpha(0) end,
 		};
-		LoadFont("ProfileText 24px") .. {
+		LoadFont("_arial black cont 28px") .. {
 			Name = 'ProfileUID';
-			InitCommand=function(s) s:uppercase(true):xy(-175,-53):halign(0):zoomy(0.7) end,
+			InitCommand=function(s) s:uppercase(true):xy(-190,-10):halign(0) end,
 				OnCommand=function(s) s:diffusealpha(0):sleep(0.87):linear(0.3):diffusealpha(1) end,
 				OffCommand=function(s) s:diffusealpha(0) end,
 		};
@@ -161,7 +200,7 @@ local t = Def.ActorFrame {
 	StorageDevicesChangedMessageCommand=function(self, params)
 		self:queuecommand('UpdateInternal2');
 	end;
-
+	
 	CodeMessageCommand = function(self, params)
 		if params.Name == 'Start' or params.Name == 'Center' then
 			MESSAGEMAN:Broadcast("StartButton");
@@ -221,9 +260,14 @@ local t = Def.ActorFrame {
 	end;
 
 	children = {
+		LoadActor( THEME:GetPathG("","_shared/ddr") ) .. {
+			InitCommand=function(s) s:diffusealpha(0) end,
+			OnCommand=function(s) s:x(100):y(40):diffusealpha(1):zoom(0.75) end,
+			OffCommand=function(s) diffusealpha(0) end,
+		};
 		Def.ActorFrame {
 			Name = 'P1Frame';
-			InitCommand=cmd(x,SCREEN_CENTER_X-214;y,SCREEN_CENTER_Y+9;zoom,0.667);
+			InitCommand=cmd(x,SCREEN_CENTER_X-150;y,SCREEN_CENTER_Y+40;zoom,0.667);
 			OffCommand=cmd();
 			PlayerJoinedMessageCommand=function(self,param)
 				if param.Player == PLAYER_1 then
@@ -234,7 +278,7 @@ local t = Def.ActorFrame {
 		};
 		Def.ActorFrame {
 			Name = 'P2Frame';
-			InitCommand=cmd(x,SCREEN_CENTER_X+214;y,SCREEN_CENTER_Y+9;zoom,0.667);
+			InitCommand=cmd(x,SCREEN_CENTER_X+150;y,SCREEN_CENTER_Y+40;zoom,0.667);
 			OffCommand=cmd();
 			PlayerJoinedMessageCommand=function(self,param)
 				if param.Player == PLAYER_2 then
