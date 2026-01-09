@@ -80,8 +80,8 @@ return Def.ActorFrame{
 	data..{ InitCommand=function(s) s:xy(-80, 60):settext(Ok)        end },
 	data..{ InitCommand=function(s) s:xy(-80, 79):settext(Miss)      end },
 
-	data..{ InitCommand=function(s) s:xy(-32,4):settext(Fast):visible(ShowFastSlow()) end },
-	data..{ InitCommand=function(s) s:xy(-32,49):settext(Slow):visible(ShowFastSlow()) end },
+	data..{ InitCommand=function(s) s:xy(-44,4):halign(0.5):settext(Fast):visible(ShowFastSlow()) end },
+	data..{ InitCommand=function(s) s:xy(-44,49):halign(0.5):settext(Slow):visible(ShowFastSlow()) end },
 
 	-- ================= SCORE =================
 	rolnum..{
