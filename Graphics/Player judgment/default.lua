@@ -27,7 +27,7 @@ local t = Def.ActorFrame {};
 
 t[#t+1] = Def.ActorFrame {
 	LoadActor("FastSlow")..{
-		InitCommand=function(s) s:diffusealpha(0):animate(false):xy(80,IsReverse(player) and -70 or 60) end,
+		InitCommand=function(s) s:diffusealpha(0):animate(false):xy(0,IsReverse(player) and -30 or 30):zoom(1) end,
 		JudgmentMessageCommand=function(self, params)
 			if not ShowFastSlow() then return end;
 			if params.Player ~= player then return end;
@@ -46,7 +46,7 @@ t[#t+1] = Def.ActorFrame {
 			end
 			self:queuecommand("Animate");
 		end;
-		AnimateCommand=cmd(diffusealpha,1;zoom,0.37*1.5;linear,0.05;zoom,0.34*1.5;sleep,0.4;diffusealpha,0);
+		AnimateCommand=cmd(diffusealpha,1;zoom,0.37*2;linear,0.05;zoom,0.34*2;sleep,0.4;diffusealpha,0);
 	};
 	
 	LoadActor("Judgment") .. {
